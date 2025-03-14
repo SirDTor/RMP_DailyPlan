@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lab1.MainPage">
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          Padding="30,0" 
+          Margin="0,0,0,60">
+        <SearchBar Grid.Row="0"
+                   Placeholder="Поиск заметок..." 
+                   TextChanged="OnSearchTextChanged" />
+        <ScrollView Grid.Row="1" Margin="0,6,0,6">
+            <CollectionView ItemsSource="{Binding Notes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Редактировать"
+                                               BackgroundColor="Blue"
+                                               Invoked="OnEditNoteSwiped"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem Text="Удалить"
+                                               BackgroundColor="Red"
+                                               Invoked="OnDeleteNoteSwiped"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Border Padding="10" Margin="5">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Content}" FontSize="14"/>
+                                    <Label Text="{Binding Date, StringFormat='{0}'}"
+                                                 FontSize="12" TextColor="Gray"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Button Grid.Row="2"
+                Text="Добавить заметку" 
+                Clicked="OnAddNoteClicked" />
+    </Grid>
+
+</ContentPage>
