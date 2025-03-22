@@ -1,31 +1,35 @@
-﻿using System.Collections.ObjectModel;
+﻿using Lab1.Services;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 
 namespace Lab1
 {
     public partial class MainPage : ContentPage
     {
+        private readonly NotesDatabaseService _databaseService;
+
         private readonly NotesService _notesService = new NotesService();
+        
         public ObservableCollection<Note> Notes { get; set; } = new();
 
         private List<Note> _allNotes = new();
 
-        public MainPage()
+        public MainPage(NotesDatabaseService databaseService)
         {
             InitializeComponent();
-            LoadNotes();
+            _databaseService = databaseService;
             BindingContext = this;
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await LoadNotes(); // Перезагрузка данных после возврата
+            await LoadNotes();
         }
 
         private async Task LoadNotes()
         {
-            _allNotes = await _notesService.LoadNotesAsync();
+            _allNotes = await _databaseService.GetNotesAsync();
             Notes.Clear();
             foreach (var note in _allNotes)
             {
@@ -51,14 +55,14 @@ namespace Lab1
 
         private async void OnAddNoteClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EditNotePage(null));
+            await Navigation.PushAsync(new EditNotePage(null, _databaseService));
         }
 
         private async void OnEditNoteSwiped(object sender, EventArgs e)
         {
             if (sender is SwipeItem swipeItem && swipeItem.CommandParameter is Note noteToEdit)
             {
-                await Navigation.PushAsync(new EditNotePage(noteToEdit));
+                await Navigation.PushAsync(new EditNotePage(noteToEdit, _databaseService));
             }
         }
 
@@ -73,14 +77,7 @@ namespace Lab1
 
                 if (confirm)
                 {
-                    var notes = await _notesService.LoadNotesAsync();
-
-                    // Удаляем заметку по её ID
-                    notes.RemoveAll(n => n.Id == noteToDelete.Id);
-
-                    await _notesService.SaveNotesAsync(notes);
-
-                    // Обновление интерфейса
+                    await _databaseService.DeleteNoteAsync(noteToDelete);
                     await LoadNotes();
                 }
             }

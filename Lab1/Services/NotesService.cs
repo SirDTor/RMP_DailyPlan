@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Lab1
+namespace Lab1.Services
 {
     public class NotesService
     {
