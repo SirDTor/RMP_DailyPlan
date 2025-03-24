@@ -8,23 +8,20 @@ public class NotesDatabaseService
 
     public NotesDatabaseService()
     {
-        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "notes.db");
+        var dbPath = Path.Combine(FileSystem.AppDataDirectory + "notes.db");
         _database = new SQLiteAsyncConnection(dbPath);
         _database.CreateTableAsync<Note>().Wait();
     }
 
-    // Получение всех заметок
     public Task<List<Note>> GetNotesAsync() => _database.Table<Note>().ToListAsync();
 
-    // Получение заметки по ID
     public Task<Note> GetNoteByIdAsync(int id) => _database.Table<Note>().Where(n => n.Id == id).FirstOrDefaultAsync();
 
-    // Добавление или обновление заметки
     public Task<int> SaveNoteAsync(Note note)
     {
         if (note.Id != 0)
         {
-            note.LastEditedDate = DateTime.Now;  // Обновление времени редактирования
+            note.LastEditedDate = DateTime.Now;
             return _database.UpdateAsync(note);
         }
         else
@@ -35,6 +32,5 @@ public class NotesDatabaseService
         }
     }
 
-    // Удаление заметки
     public Task<int> DeleteNoteAsync(Note note) => _database.DeleteAsync(note);
 }
