@@ -5,7 +5,6 @@
         public App()
         {
             InitializeComponent();
-            // Применяем сохранённые настройки
             ApplySavedThemeSettings();
         }
 

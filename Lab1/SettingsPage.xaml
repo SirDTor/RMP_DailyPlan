@@ -4,7 +4,9 @@
              Title="Настройки">
 
     <VerticalStackLayout Padding="20" Spacing="10">
-
+        <!-- Редактирование текущей даты -->
+        <Label Text="Выберите текущую дату" />
+        <DatePicker x:Name="CurrentDatePicker" />
         <!-- Выбор фона -->
         <Label Text="Выберите цвет фона главной страницы:" />
         <Picker x:Name="BackgroundColorPicker">

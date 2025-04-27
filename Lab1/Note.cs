@@ -11,10 +11,10 @@ namespace Lab1
         
         public string Content { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.Parse(Preferences.Get("CurrentDate", DateTime.Now.ToString("yyyy-MM-dd")));
         
-        public DateTime LastEditedDate { get; set; } = DateTime.Now;
+        public DateTime LastEditedDate { get; set; } = DateTime.Parse(Preferences.Get("CurrentDate", DateTime.Now.ToString("yyyy-MM-dd")));
 
-        public DateTime ScheduledDate { get; set; } = DateTime.Now;
+        public DateTime ScheduledDate { get; set; } = DateTime.Parse(Preferences.Get("CurrentDate", DateTime.Now.ToString("yyyy-MM-dd")));
     }
 }

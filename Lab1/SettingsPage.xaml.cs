@@ -9,55 +9,52 @@ namespace Lab1
         {
             InitializeComponent();
 
-            // Загружаем сохранённые значения в элементы управления
             BackgroundColorPicker.SelectedIndex = Preferences.Get("BackgroundColorIndex", 0);
             ButtonBackgroundColorPicker.SelectedIndex = Preferences.Get("ButtonBackgroundColorIndex", 0);
             TextColorPicker.SelectedIndex = Preferences.Get("TextColorIndex", 0);
             FontSizeSlider.Value = Preferences.Get("FontSize", 16f);
+
+            var savedDate = Preferences.Get("CurrentDate", DateTime.Now.ToString("yyyy-MM-dd"));
+            CurrentDatePicker.Date = DateTime.Parse(savedDate);
         }
 
         private void OnApplySettingsClicked(object sender, EventArgs e)
         {
-            // Сохраняем значения в Preferences
             Preferences.Set("BackgroundColorIndex", BackgroundColorPicker.SelectedIndex);
             Preferences.Set("ButtonBackgroundColorIndex", ButtonBackgroundColorPicker.SelectedIndex);
             Preferences.Set("TextColorIndex", TextColorPicker.SelectedIndex);
             Preferences.Set("FontSize", (float)FontSizeSlider.Value);
+            Preferences.Set("CurrentDate", CurrentDatePicker.Date.ToString("yyyy-MM-dd"));
 
-            // Применяем изменения
             ApplySavedThemeSettings();
 
-            // Возвращаем на главную страницу
             Navigation.PopAsync();
         }
 
         private void OnResetSettingsClicked(object sender, EventArgs e)
         {
-            // Сброс настроек в значения по умолчанию
             Preferences.Remove("BackgroundColorIndex");
             Preferences.Remove("ButtonBackgroundColorIndex");
             Preferences.Remove("TextColorIndex");
             Preferences.Remove("FontSize");
+            Preferences.Remove("CurrentDate");
 
-            // Восстанавливаем настройки по умолчанию в элементы управления
-            BackgroundColorPicker.SelectedIndex = 0; // Белый
+            BackgroundColorPicker.SelectedIndex = 0; 
             ButtonBackgroundColorPicker.SelectedIndex = 0;
-            TextColorPicker.SelectedIndex = 0; // Черный
-            FontSizeSlider.Value = 16; // Стандартный размер
+            TextColorPicker.SelectedIndex = 0;
+            FontSizeSlider.Value = 16; 
+            CurrentDatePicker.Date = DateTime.Now;
 
-            // Применяем настройки по умолчанию
             ApplySavedThemeSettings();
         }
 
         private void ApplySavedThemeSettings()
         {
-            // Получаем сохранённые значения
             var backgroundColorIndex = Preferences.Get("BackgroundColorIndex", 0);
             var buttonBackgroundColorIndex = Preferences.Get("ButtonBackgroundColorIndex", 0);
             var textColorIndex = Preferences.Get("TextColorIndex", 0);
             var fontSize = Preferences.Get("FontSize", 16f);
 
-            // Обновляем ресурсы
             Application.Current.Resources["BackgroundColor"] = GetBackgroundColor(backgroundColorIndex);
             Application.Current.Resources["ButtonBackgroundColor"] = GetButtonBackgroundColor(buttonBackgroundColorIndex);
             Application.Current.Resources["PrimaryTextColor"] = GetTextColor(textColorIndex);
