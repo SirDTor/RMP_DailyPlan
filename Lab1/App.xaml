@@ -7,8 +7,35 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <!--<ResourceDictionary Source="Resources/Styles/Styles.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
+            <!-- Цвет фона страницы -->
+            <Color x:Key="BackgroundColor">White</Color>
+
+            <!-- Цвет текста -->
+            <Color x:Key="PrimaryTextColor">Black</Color>
+
+            <Color x:Key="ButtonBackgroundColor">Yellow</Color>
+
+            <!-- Размер шрифта -->
+            <x:Double x:Key="FontSize">16</x:Double>
+
+            <Style TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}" />
+            </Style>
+
+            <!-- Глобальный стиль для всех Label -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+            </Style>
+
+            <!-- Глобальный стиль для всех Button -->
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryTextColor}" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ButtonBackgroundColor}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

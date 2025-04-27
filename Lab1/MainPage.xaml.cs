@@ -82,6 +82,11 @@ namespace Lab1
                 }
             }
         }
+        private async void OnSettingsClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingsPage());
+        }
+
     }
 
 }

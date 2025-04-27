@@ -3,13 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Lab1.MainPage">
 
-    <Grid RowDefinitions="Auto,*,Auto"
+    <Grid RowDefinitions="Auto,Auto,*,Auto"
           Padding="30,0" 
           Margin="0,0,0,60">
         <SearchBar Grid.Row="0"
                    Placeholder="Поиск заметок..." 
                    TextChanged="OnSearchTextChanged" />
-        <ScrollView Grid.Row="1" Margin="0,6,0,6">
+        <Button Grid.Row="1" 
+                Margin="0,6,0,6"
+                Text="Настройки"
+                HorizontalOptions="End"
+                Clicked="OnSettingsClicked"/>
+        <ScrollView Grid.Row="2" 
+                    Margin="0,6,0,6">
             <CollectionView ItemsSource="{Binding Notes}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -45,7 +51,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        <Button Grid.Row="2"
+        <Button Grid.Row="3"
                 Text="Добавить заметку" 
                 Clicked="OnAddNoteClicked" />
     </Grid>

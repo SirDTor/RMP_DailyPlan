@@ -1,0 +1,45 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Lab1.SettingsPage"
+             Title="Настройки">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <!-- Выбор фона -->
+        <Label Text="Выберите цвет фона главной страницы:" />
+        <Picker x:Name="BackgroundColorPicker">
+            <Picker.Items>
+                <x:String>Белый</x:String>
+                <x:String>Светло-серый</x:String>
+                <x:String>Бежевый</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <Label Text="Выберите цвет фона кнопок:" />
+        <Picker x:Name="ButtonBackgroundColorPicker">
+            <Picker.Items>
+                <x:String>Красный</x:String>
+                <x:String>Желтый</x:String>
+                <x:String>Бежевый</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <!-- Выбор цвета текста -->
+        <Label Text="Выберите цвет текста:" />
+        <Picker x:Name="TextColorPicker">
+            <Picker.Items>
+                <x:String>Чёрный</x:String>
+                <x:String>Синий</x:String>
+                <x:String>Тёмно-серый</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <!-- Выбор размера шрифта -->
+        <Label Text="Размер шрифта:" />
+        <Slider x:Name="FontSizeSlider" Minimum="10" Maximum="30" Value="16" />
+
+        <!-- Кнопка применения изменений -->
+        <Button Text="Применить" Clicked="OnApplySettingsClicked" />
+        <Button Text="Сбросить настройки по умолчанию" Clicked="OnResetSettingsClicked" />
+    </VerticalStackLayout>
+</ContentPage>
